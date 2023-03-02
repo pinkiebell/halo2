@@ -262,6 +262,14 @@ impl<'r, 'a, F: Field, CS: Assignment<F> + 'a> SingleChipLayouterRegion<'r, 'a, 
 impl<'r, 'a, F: Field, CS: Assignment<F> + 'a> RegionLayouter<F>
     for SingleChipLayouterRegion<'r, 'a, F, CS>
 {
+    fn name_column<'v>(
+        &'v mut self,
+        annotation: &'v (dyn Fn() -> String + 'v),
+        column: Column<Any>,
+    ) {
+        self.layouter.cs.annotate_column(annotation, column);
+    }
+
     fn enable_selector<'v>(
         &'v mut self,
         annotation: &'v (dyn Fn() -> String + 'v),
